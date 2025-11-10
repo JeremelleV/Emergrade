@@ -3,6 +3,8 @@ import json, pathlib, os, tempfile, traceback
 from django.shortcuts import render
 from .hf_tryon import run_tryon
 from .services.size_recommender import ProductChart, SizeRow, recommend_top_size
+from core.models import UserProfile
+from core.encryption import decrypt
 from django.http import JsonResponse
 
 def vton_tryon_api(request):
@@ -33,6 +35,8 @@ def vton_tryon_api(request):
             try: os.remove(p)
             except: pass
 
+
+
 _CHARTS = None
 def load_charts():
     global _CHARTS
@@ -54,9 +58,34 @@ def load_charts():
         _CHARTS = charts
     return _CHARTS
 
+
 def vton_demo(request):
     ctx = {}
     charts = load_charts()
+    user = request.user
+    profile_data_avaliable = False
+    try:
+        profile = UserProfile.objects.get(user=user)
+        print("Existing profile found")
+        profile_data_avaliable = True
+    except UserProfile.DoesNotExist:
+        print("Profile not found")
+        profile_data_avaliable = False
+        
+    if profile_data_avaliable:
+        chest = profile.chest
+        chest = decrypt(chest)
+        waist = profile.waist_circumference
+        waist = decrypt(waist)
+        hip = profile.hip_circumference
+        hip = decrypt(hip)
+        inseam = profile.Inseam_length
+        inseam = decrypt(inseam)
+        height = profile.height
+        height = decrypt(height)
+        weight = profile.weight
+        weight = decrypt(weight)
+
 
     if request.method == "POST":
         action   = (request.POST.get("action") or "").strip().lower()

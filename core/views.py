@@ -4,6 +4,11 @@ from django.contrib import messages
 from .models import User,UserProfile
 from django.shortcuts import get_object_or_404, render
 from .encryption import encrypt
+from django.core.mail import send_mail
+import pyotp
+from .utils import send_otp
+from datetime import datetime
+from django.contrib.auth import login, get_backends
 
 # Create your views here.
 def main(request):
@@ -12,8 +17,11 @@ def main(request):
 def login_view(request):
     return render(request, "login.html" )
 
-def user_profile_view(request):
-    return render(request, "user_profile.html" )
+def linker_view(request):
+    return render(request, "linker.html" )
+
+# def otp(request):
+#     return render(request, "otp.html" )
 
 
 def user_profile(request):
@@ -92,7 +100,7 @@ def user_profile(request):
         return redirect('core-main')
     
     # GET request - render the form
-    return render(request, "user_profile2.html")
+    return render(request, "user_profile.html")
 
 
 def signup(request):
@@ -119,18 +127,18 @@ def signup(request):
         messages.success(request, "Account successfully created.")
 
 
-        #Welcome email
-        # subject = "Welcome to SOS Pay!"
-        # message = "Hello " + myuser.first_name + "!!\n" + "Welcome to SOS Pay\n Thank You for visiting this site.\n We have sent you a confirmation email. Please confirm your email address to activate your account. \n\n  Thank you "+fname
-        # from_email = 'larteyian@gmail.com'
-        # receipient_list = [myuser.email]
-        # send_mail(subject, message, from_email, receipient_list, fail_silently=False)
+        # Welcome email
+        subject = "Welcome to Emergrade!"
+        message = "Hello " + myuser.first_name + "!!\n" + "Welcome to Emergrade\n Thank You for visiting this site.\n We have sent you a confirmation email. Please confirm your email address to activate your account. \n\n  Thank you "+fname
+        from_email = 'larteyian@gmail.com'
+        receipient_list = [myuser.email]
+        send_mail(subject, message, from_email, receipient_list, fail_silently=False)
 
 
 
         return redirect('signin')
     
-    return redirect('login_view')
+    return redirect('login')
 
 def signout(request):
     logout(request)
@@ -144,44 +152,89 @@ def signin(request):
 
         user = authenticate(email=email, password=pass1)
         if user is not None:
-            login(request, user)
-            messages.success(request, "Login successful!")
-            return redirect('core-main')  # Redirect to dashboard or main page
+            # login(request, user)
+            # messages.success(request, "Login successful!")
+            # return redirect('core-main')  # Redirect to dashboard or main page
+            email_otp= send_otp(request)
+            subject = "Email Verification!"
+            message = "Hello " + user.first_name +  "!!\n" + "Welcome to Emergrade\n Thank You for visiting this site.\n Below is the otp to complete your login. Please type in this otp in the website to login:\n" +email_otp
+            from_email = 'larteyian@gmail.com'
+            receipient_list = [user.email]
+            send_mail(subject, message, from_email, receipient_list, fail_silently=False)
+            request.session['email']=user.email
+            return redirect('otp')
         else:
             messages.error(request, "Invalid email or password")
             return redirect('login')
 
     return redirect('core-main')
 
-def profile(request):
-    if request.method == "POST":
-        chest = request.POST['chest']
-        waist_circumference = request.POST['waist']
-        hip_circumference = request.POST['hips']
-        inseam = request.POST['inseam']
-        height = request.POST['height']
-        weight = request.POST['weight']
-        body_shape = request.POST['body-shape']
-        photo = request.POST['fname']
+# def profile(request):
+#     if request.method == "POST":
+#         chest = request.POST['chest']
+#         waist_circumference = request.POST['waist']
+#         hip_circumference = request.POST['hips']
+#         inseam = request.POST['inseam']
+#         height = request.POST['height']
+#         weight = request.POST['weight']
+#         body_shape = request.POST['body-shape']
+#         photo = request.POST['fname']
 
-        email = request.session.get('email')
-        user =  get_object_or_404(User, email=email)
-        profile = get_object_or_404(UserProfile, user=user)
+#         email = request.session.get('email')
+#         user =  get_object_or_404(User, email=email)
+#         profile = get_object_or_404(UserProfile, user=user)
 
-        profile.chest = chest
-        profile.waist_circumference = waist_circumference
-        profile.hip_circumference = hip_circumference
-        profile.height = height
-        profile.weight = weight
-        profile.body_shape = body_shape
-        profile.Inseam_length = inseam
-        profile.image = photo
+#         profile.chest = chest
+#         profile.waist_circumference = waist_circumference
+#         profile.hip_circumference = hip_circumference
+#         profile.height = height
+#         profile.weight = weight
+#         profile.body_shape = body_shape
+#         profile.Inseam_length = inseam
+#         profile.image = photo
 
-        profile.save()
+#         profile.save()
         
 
 
-        return redirect('core-main')
+#         return redirect('core-main')
 
 
 
+def otp_view(request):
+    if request.method == "POST":
+        p1 = request.POST['p1']
+        p2 = request.POST['p2']
+        p3 = request.POST['p3']
+        p4 = request.POST['p4']
+        p5 = request.POST['p5']
+        p6 = request.POST['p6']
+        otp = ''.join([p1,p2,p3,p4,p5,p6])
+            
+        email = request.session.get('email')
+        user =  get_object_or_404(User, email=email)
+        otp_secret_key = request.session['otp_secret_key']
+        otp_valid_date = request.session['otp_valid_date']
+        
+
+        if otp_secret_key and otp_valid_date is not None:
+            valid_until = datetime.fromisoformat(otp_valid_date)
+
+            if valid_until > datetime.now():
+                totp = pyotp.TOTP(otp_secret_key, interval=60)
+                if totp.verify(otp,valid_window=1):
+                    print("Success")
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+
+                    request.session.pop('otp_secret_key', None)
+                    request.session.pop('otp_valid_date', None)
+
+                    return redirect('core-main')
+                else:
+                    print("Invalid")
+            else: 
+                print("OTP expired")
+        else: 
+                print("OTP error")
+
+    return render(request, 'otp.html') 

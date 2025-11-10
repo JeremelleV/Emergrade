@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleSense | Sustainable Fashion Technology</title>
+    <title>Emergreade | Sustainable Fashion Technology</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main.css' %}" />
@@ -25,7 +25,7 @@
                     <li><a href="#solution">Solution</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#team">Team</a></li>
-                    <li><a href="{% url 'vton_demo' %}" class="btn btn-primary">Try Demo</a></li>
+                    <li><a href="{% url 'linker' %}" class="btn btn-primary">Try Demo</a></li>
                 </ul>
                 <div class="hamburger">
                     <i class="fas fa-bars"></i>
@@ -42,7 +42,7 @@
                     <h1>Reduce Fashion Waste with <span>AI-Powered Insights</span></h1>
                     <p>StyleSense combines virtual try-on technology with brainwave monitoring to help you make sustainable fashion choices and reduce impulse purchases.</p>
                     <div class="hero-buttons">
-                        <a href="#cta" class="btn btn-primary">
+                        <a href="{% url 'linker' %}" class="btn btn-primary">
                             <i class="fas fa-play-circle"></i>
                             Try Virtual Try-On
                         </a>
@@ -236,7 +236,7 @@
             <div class="cta-content">
                 <h2>Ready to Make a Difference?</h2>
                 <p>Join our mission to reduce fashion waste. Try our virtual try-on demo and experience the future of sustainable shopping.</p>
-                <a href="{% url 'vton_demo' %}" class="btn">Try Demo Now</a>
+                <a href="{% url 'linker' %}" class="btn">Try Demo Now</a>
             </div>
         </div>
     </section>

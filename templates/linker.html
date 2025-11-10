@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSense | Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'linker.css' %}" />
+
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element">
+            <i class="fas fa-tshirt"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-brain"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-leaf"></i>
+        </div>
+        <div class="floating-element">
+            <i class="fas fa-ruler-combined"></i>
+        </div>
+    </div>
+
+    <div class="gateway-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            Emergrade
+        </div>
+
+        <div class="gateway-card">
+            <h1>Ready to try-on your new fit?</h1>
+            <p>Reduce fashion waste with AI-powered insights and virtual try-on technology</p>
+            {% if user.is_authenticated %}
+                {% if user.user_profile.chest and user.user_profile.waist_circumference and user.user_profile.hip_circumference and user.user_profile.Inseam_length and user.user_profile.height%}
+                    <a href="/demo"><button class="btn btn-secondary" id="continue-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Continue to Virtual Try-on
+                    </button></a>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        Don't make an impulse purchase! Try-on first 
+                    </p>
+                {% else %}
+                    <a href="/profile"><button class="btn btn-secondary" id="continue-btn">
+                        <i class="fas fa-user-circle"></i>
+                        Kindly fill in your measurements
+                    </button></a>
+                    <a href="/demo"><button class="btn btn-secondary" id="continue-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        Continue Without providing data
+                    </button></a>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        Don't make an impulse purchase! Try-on first 
+                    </p>
+                {% endif %}
+                
+
+            {% else %}
+                <a href="/login"><button class="btn btn-primary" id="signin-btn">
+                    <i class="fas fa-user-circle"></i>
+                    Sign In to Your Account
+                </button></a>
+                
+                <a href="/demo"><button class="btn btn-secondary" id="continue-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    Continue Without Signing In
+                </button></a>
+                
+                <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                    You can always create an account later to save your preferences
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="benefits">
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3>Virtual Try-On</h3>
+                <p>See how clothes fit before buying</p>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Impulse Detection</h3>
+                <p>AI helps identify impulse purchases</p>
+            </div>
+            <div class="benefit">
+                <div class="benefit-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Sustainable Impact</h3>
+                <p>Reduce fashion waste with smart choices</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sign In button handler
+        document.getElementById('signin-btn').addEventListener('click', function() {
+            // In a real application, this would redirect to the sign in page
+            alert('Redirecting to sign in page...');
+            // window.location.href = 'signin.html';
+        });
+
+        // Continue without signing in button handler
+        document.getElementById('continue-btn').addEventListener('click', function() {
+            // In a real application, this would redirect to the main app
+            alert('Continuing as guest user...');
+            // window.location.href = 'app.html';
+        });
+
+        // Add some interactive effects
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(1px)';
+            });
+            
+            button.addEventListener('mouseup', function() {
+                this.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

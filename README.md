@@ -1,8 +1,8 @@
-# 🧠💻 NeuroStyle: EEG-Driven Virtual Try-On Platform
+# 🧠💻 Emergrade: EEG-Driven Virtual Try-On Platform
 
 ## Overview
 
-NeuroStyle is an ambitious, full-stack web application built on **Django** that seamlessly integrates **Virtual Try-On (VTON)** technology with **Brain-Computer Interface (BCI)** data processing. The core mission is to explore how a user's real-time cognitive state, captured via Electroencephalography (EEG), can influence or personalize a virtual clothing try-on experience.
+Emergrade is an ambitious, full-stack web application built on **Django** that seamlessly integrates **Virtual Try-On (VTON)** technology with **Brain-Computer Interface (BCI)** data processing. The core mission is to explore how a user's real-time cognitive state, captured via Electroencephalography (EEG), can influence or personalize a virtual clothing try-on experience.
 
 ## Key Features
 

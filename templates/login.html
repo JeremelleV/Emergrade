@@ -1,0 +1,256 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSense | Join Our Sustainable Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    Style<span>Sense</span>
+                </div>
+                <h1>Join Our Sustainable Fashion Community</h1>
+                <p>Create an account to reduce fashion waste with AI-powered insights and virtual try-on technology.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-tshirt"></i>
+                        <span>Virtual try-on technology</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <span>Impulse purchase detection</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <span>Track your sustainability impact</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Personalized shopping insights</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="floating-elements">
+                <div class="floating-element">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="floating-element">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="floating-element">
+                    <i class="fas fa-leaf"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auth-section">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-tab="signup">Sign Up</div>
+                    <div class="auth-tab" data-tab="login">Log In</div>
+                </div>
+                
+                <!-- Sign Up Form -->
+                <form class="auth-form active" id="signup-form" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="signup-name">First Name</label>
+                        <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Enter your fisrt name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-name">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Enter your last name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="signup-password" name="signup-password" class="form-control" placeholder="Create a password" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <div class="password-input">
+                            <input type="password" id="signup-confirm-password"  name="signup-confirm-password" class="form-control" placeholder="Confirm your password" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or continue with</span>
+                    </div>
+                    
+                    <a href="/accounts/google/login"><button type="button" class="btn btn-google">
+                        <i class="fab fa-google"></i>
+                        Sign up with Google
+                    </button></a>
+                    
+                    <p class="terms">
+                        By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                    </p>
+                </form>
+                
+                <!-- Login Form -->
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" name="login-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="login-password" name="login-password"class="form-control" placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Log In
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or continue with</span>
+                    </div>
+                    
+                     <button class="hidden" id="register">Sign Up</button></a>
+                    <a href="/accounts/google/login"><button type="button" class="btn btn-google">
+                        <i class="fab fa-google"></i>
+                        Log in with Google
+                    </button></a>
+                    
+                    <p class="terms">
+                        Don't have an account? <a href="#" class="switch-to-signup">Sign up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+        // Tab switching functionality
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all forms
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                // Show the form corresponding to the clicked tab
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(`${tabId}-form`).classList.add('active');
+            });
+        });
+        
+        // Switch to signup from login form link
+        document.querySelector('.switch-to-signup').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('.auth-tab[data-tab="signup"]').classList.add('active');
+            
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            document.getElementById('signup-form').classList.add('active');
+        });
+        
+        // Password toggle functionality
+        document.querySelectorAll('.password-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Form submission
+        // registerBtn.addEventListener('click', () => {
+        //     container.classList.add("active");
+        // }); 
+
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // In a real application, you would send this data to your server
+            alert('Account created successfully! Redirecting...');
+            // window.location.href = 'dashboard.html';
+        });
+        
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send this data to your server
+            alert('Login successful! Redirecting...');
+            // window.location.href = 'dashboard.html';
+        });
+        
+        // Google sign in button
+        document.querySelectorAll('.btn-google').forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real application, this would integrate with Google OAuth
+                alert('Redirecting to Google authentication...');
+                // Implement Google OAuth flow here
+            });
+        });
+    </script>
+</body>
+</html>

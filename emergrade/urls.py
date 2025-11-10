@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path("",include("vton.urls")),
+    path('accounts/', include('allauth.urls')),
 ] 
 
 # serve media in dev

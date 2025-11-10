@@ -4,6 +4,8 @@ from django.shortcuts import render
 from .hf_tryon import run_tryon
 from .services.size_recommender import ProductChart, SizeRow, recommend_top_size
 
+
+
 _CHARTS = None
 def load_charts():
     global _CHARTS
@@ -24,6 +26,7 @@ def load_charts():
             )
         _CHARTS = charts
     return _CHARTS
+
 
 def vton_demo(request):
     ctx = {}

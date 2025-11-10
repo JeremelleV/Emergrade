@@ -143,11 +143,6 @@ def main_session():
         if not muselsl_process:
             return
 
-        # 2. Wait for user to trigger start
-        print('\n--- READY ---')
-        print('Press ENTER to begin recording the activity (after Muse connects).')
-        sys.stdin.readline()
-
         # 3. Connect to LSL stream
         inlet, fs = connect_to_stream()
 

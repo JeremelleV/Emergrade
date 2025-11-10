@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import User,UserProfile
 from django.shortcuts import get_object_or_404, render
-from .encryption import encrypt, decrypt
+from .encryption import encrypt
 
 # Create your views here.
 def main(request):

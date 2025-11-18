@@ -19,7 +19,7 @@ Emergrade is an ambitious, full-stack web application built on **Django** that s
 
 This project was developed by our multidisciplinary team for NatHacks 2025, focusing on AI, UX, sustainability, and digital well-being.
 
-Check out the live website: **[Emergrade on Render](https://emergrade-a0wx.onrender.com)**
+Check out the live website: **[Emergrade on Render](https://emergrade-a0wx.onrender.com)** 
 Check out the project on Devpost: **[Devpost Page Here](https://devpost.com/software/emergrade)**
 
 ---

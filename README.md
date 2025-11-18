@@ -78,7 +78,7 @@ This project requires a Python environment managed by **Pipenv** (using `Pipfile
 
 ## Model Credit — yisol/IDM-VTON
 
-All virtual try-on results are generated using the excellent open-source model:
+All virtual try-on results are generated using the excellent open-source model licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 License:
 
 ### **IDM-VTON on Hugging Face**  
 🔗 https://huggingface.co/spaces/yisol/IDM-VTON  

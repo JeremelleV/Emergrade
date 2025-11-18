@@ -15,6 +15,7 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
+PORT = os.environ.get("PORT", 10000)
 
 load_dotenv()
 
